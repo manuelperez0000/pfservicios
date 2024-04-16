@@ -1,0 +1,5 @@
+export {default as Hero} from './hero'
+export {default as Services} from './services'
+export {default as AboutUs} from './about-us'
+export {default as CallToAction} from './cta'
+export {default as SellTable} from './sell-table'
