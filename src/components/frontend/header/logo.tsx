@@ -1,10 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 export default function Logo() {
   return (
     <div className="brand">
-      <span className="text-xl uppercase text-primary ubuntu-bold-italic">
+      <Link
+        to="/"
+        className="text-xl uppercase text-primary ubuntu-bold-italic"
+      >
         pfservicios
-      </span>
+      </Link>
     </div>
   );
 }

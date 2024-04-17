@@ -1,3 +1,4 @@
+import './auth.scss'
 import AuthFooter from "../footer/authFooter";
 
 import AuthHeader from "../header/authHeader";

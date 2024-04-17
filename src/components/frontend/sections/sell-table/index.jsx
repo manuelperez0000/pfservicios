@@ -1,6 +1,14 @@
 import { Button } from 'primereact/button';
+import {Zustand} from '../../../../libs'
+
 
 export default function SellTable() {
+    const {setSelectOption} = Zustand.useStore()
+    const handlerSelect = (data) => {
+        setSelectOption(data)
+
+    }
+   
     return(
         <section id="sell-table" className="py-20 text-center surface-0 md:py-28">
             <div className="container px-5 mx-auto md:px-0 ">
@@ -35,7 +43,7 @@ export default function SellTable() {
                         </li>
                     </ul>
                     <hr className="mx-0 mt-auto mb-3 border-top-1 border-bottom-none border-300" />
-                    <Button label="Contratar" className="w-full p-3 mt-auto" />
+                    <Button label="Contratar" onClick={()=>handlerSelect('Optimización de sistemas operativos')} className="w-full p-3 mt-auto" />
                 </div>
             </div>
         </div>
@@ -64,7 +72,7 @@ export default function SellTable() {
                         </li>
                     </ul>
                     <hr className="mx-0 mt-auto mb-3 border-top-1 border-bottom-none border-300" />
-                    <Button label="Contratar" className="w-full p-3 mt-auto" />
+                    <Button label="Contratar" onClick={() => handlerSelect('Eliminación de virus de forma segura')} className="w-full p-3 mt-auto" />
                 </div>
             </div>
         </div>
@@ -90,7 +98,7 @@ export default function SellTable() {
                         </li>
                     </ul>
                     <hr className="mx-0 mt-auto mb-3 border-top-1 border-bottom-none border-300" />
-                    <Button label="Contratar" className="w-full p-3 mt-auto" />
+                    <Button label="Contratar" onClick={() => handlerSelect('Asesoría en gestión de servidores')} className="w-full p-3 mt-auto" />
                 </div>
             </div>
         </div>

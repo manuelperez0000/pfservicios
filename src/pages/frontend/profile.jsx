@@ -1,6 +1,6 @@
-import { FrontendComponents } from '@/components';
+import { FrontendComponents } from '../../components';
 export default function Profile() {
     return (
-        <FrontendComponents.Layout>Profile</FrontendComponents.Layout>
+        <FrontendComponents.Layout.LandingLayout>Profile</FrontendComponents.Layout.LandingLayout>
     )
 }

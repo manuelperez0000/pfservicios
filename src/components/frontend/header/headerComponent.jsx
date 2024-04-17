@@ -6,6 +6,7 @@ import ButtonItem from "./buttonItem";
 import MobileMenu from "./MobileMenu";
 import Logo from "./logo";
 import WhatsappButton from "../whatsapp/whatsappButton";
+import { frontRoutes } from "../../../router";
 
 export default function HeaderComponent() {
   const [openMenu, setopenMenu] = useState(false);
@@ -38,7 +39,7 @@ export default function HeaderComponent() {
           <Logo />
           <div className="flex items-center justify-end gap-2 menu-section">
             <div className="hidden md:block">
-              <NavComponent
+              <NavComponent router={frontRoutes}
               />
             </div>
             <ButtonItem open={openMenu} setOpen={setopenMenu} />
@@ -53,7 +54,7 @@ export default function HeaderComponent() {
           <Logo />
           <div className="flex items-center justify-end gap-2 menu-section">
             <div className="hidden md:block">
-              <NavComponent
+              <NavComponent router={frontRoutes}
               />
             </div>
             <ButtonItem open={openMenu} setOpen={setopenMenu} />

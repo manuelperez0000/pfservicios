@@ -1,7 +1,19 @@
+import {Helmet} from "react-helmet";
 import {FrontendComponents} from '../../components/index'
+import { Zustand } from "../../libs";
+import { useEffect } from "react";
 
 export default function Home() {
+  const {selectOption} =Zustand.useStore()
+
+  useEffect(() => {
+    console.log(selectOption);
+}, [selectOption])
   return (
+    <>
+     <Helmet >
+        <title>PFServicios | Servicios informáticos</title>
+     </Helmet>
     <FrontendComponents.Layout.LandingLayout>
         <FrontendComponents.Sections.Hero/>
         <FrontendComponents.Sections.AboutUs/>
@@ -12,5 +24,6 @@ export default function Home() {
     
     
     </FrontendComponents.Layout.LandingLayout>
+    </>
   )
 }
