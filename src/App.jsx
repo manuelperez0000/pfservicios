@@ -1,14 +1,21 @@
 /* eslint-disable react/prop-types */
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { routes } from "./router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Zustand } from "./libs";
 
 export default function App() {
-    const login = true
-    const role ='admin'
+    const zustand = Zustand.useStore()
+    const [login,setLogin] = useState(false)
+    const [role,setRole] = useState('user')
     useEffect(() => {
-        
-    },[])
+        setLogin(zustand.isLogin);
+        if (zustand.isAdmin) {
+          setRole('admin')  
+        }else{
+          setRole('user')  
+        }        
+    },[zustand.isLogin,zustand.isAdmin])
 
     const base = window.location.origin
     return (
@@ -29,8 +36,8 @@ export default function App() {
 
 const ProtectedRoutes = ({children,login}) => {
     
-        return login  ? children : <Navigate to="/auth/login" />
+        return login  ? children : <Navigate to="/login" />
 }
 const AdminRoutes = ({children,role}) => {
-    return role == 'admin' ? children : <Navigate to="/auth/login" />
+    return role == 'admin' ? children : <Navigate to="/login" />
 }

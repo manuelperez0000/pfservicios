@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import Logo from "../header/logo";
 import CopyRight from "../copyRight";
+import { Zustand } from "../../../libs";
 
 export default function Footer(){
+  const {isLogin,isAdmin} = Zustand.useStore()
     return(
         <footer className="w-full py-6 font-medium tracking-wide text-gray-500 border-t text-sm/relaxed bg-gray-50 dark:text-gray-400 dark:bg-gray-950">
       <div className="container grid gap-8 px-4 mx-auto md:grid-cols-3 lg:px-6">
@@ -32,7 +34,20 @@ export default function Footer(){
           <a className="font-bold" target="_blank" href={`tel:+${import.meta.env.VITE_TELEPHONE}`}>
             Contactar
           </a>
-          <ul className="space-y-1.5">
+          {
+            isLogin ?(<ul className="space-y-1.5">
+            <li>
+              <Link to="/profile">Perfil</Link>
+            </li>
+            {
+              isAdmin == 'admin' && (
+                <li>
+              <Link to="/admin">Administración</Link>
+            </li>
+              )
+            }
+          </ul>):(
+              <ul className="space-y-1.5">
             <li>
               <Link to="/login">Iniciar Sesión</Link>
             </li>
@@ -40,6 +55,8 @@ export default function Footer(){
               <Link to="/register">Registrarse</Link>
             </li>
           </ul>
+            )
+          }
         </div>
       </div>
         <CopyRight />

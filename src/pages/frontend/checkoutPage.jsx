@@ -13,59 +13,10 @@ import './inputs.scss'
 import { Zustand } from "../../libs";
 
 
-const schema = yup.object({
-    username: yup.string().required("El nombre es requerido"),
-    email: yup.string().email('Debe ser un correo valido').required("El correo es requerido"),
-    phone: yup.string().required("El teléfono es requerido"),
-    indentification: yup.string().required("La identificación es requerida"),
-    newpassword: yup.string().required("La contraseña es requerida"),
-    confirmPass: yup
-    .string()
-    .oneOf([yup.ref("newpassword")], "Las contraseñas no coinciden").required("Confirme la contraseña"),
-}).required();
-
-// eslint-disable-next-line react/prop-types
-const Greetings = ({name})=>{return(<div className="text-center"><h3 className="text-3xl font-bold">Gracias por registrarte {name}</h3> <h4 className="text-xl font-semibold">Presione el boton abajo para entrar a su cuenta</h4></div>)}
-const Footer = ()=>{
-    const {setAuthModal} = Zustand.useStore()
-    const navigate = useNavigate(); 
-    const onClick = ()=>{
-        navigate('/profile')
-        setAuthModal({open:false})
-    }  
-    return( <div className="flex justify-content-center"><button className="px-4 py-2 text-white duration-300 bg-primary hover:bg-secondary" onClick={onClick}>Aceptar</button></div> )
-}
-
-export default function Register(){
-
-    const {setAuthModal,setIsLogin,setUserData,isLogin,setIsAdmin} = Zustand.useStore()
-    const navigate = useNavigate();
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-      } = useForm({
-        resolver: yupResolver(schema),
-      })
-
-      const onSubmit = (data) =>{
-        console.log(data)
-        console.log(errors);
-        setIsLogin(true)
-        const {username, email, phone, indentification} = data
-        setUserData({username, email, phone, indentification,role:'admin'})
-        setIsAdmin('admin')
-        setAuthModal({open:true, content:<Greetings name={data.username} />, title:"Usuario creado",setOpen:()=>{setAuthModal({open:false})},footer:<Footer />})
-      }
-
-      useEffect(()=>{
-          if (isLogin) {
-            navigate('/profile')
-          }
-      },[])
+export default function CheckoutPage() {
 
     return (
-       <>
+        <>
         <Helmet>
             <title>PFServicios | Registrarse</title>
         </Helmet>
