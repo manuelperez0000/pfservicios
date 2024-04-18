@@ -34,10 +34,10 @@ export default function Footer(){
           </a>
           <ul className="space-y-1.5">
             <li>
-              <Link to="/auth/login">Iniciar Sesión</Link>
+              <Link to="/login">Iniciar Sesión</Link>
             </li>
             <li>
-              <Link to="/auth/register">Registrarse</Link>
+              <Link to="/register">Registrarse</Link>
             </li>
           </ul>
         </div>

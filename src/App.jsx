@@ -9,8 +9,10 @@ export default function App() {
     useEffect(() => {
         
     },[])
+
+    const base = window.location.origin
     return (
-        <BrowserRouter basename="/" >
+        <BrowserRouter base={`${base}/`} >
         <Routes>
             {
                 routes.map((route, index) => {

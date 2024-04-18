@@ -24,11 +24,11 @@ export const frontRoutes = [
 
 export const authRoutes = [
   {
-    path: "/auth/login",
+    path: "/login",
     title:"Iniciar sesión"
   },
   {
-    path: "/auth/register",
+    path: "/register",
     title:"Registrarse"
   }
 ]
@@ -49,28 +49,28 @@ export const routes = [
     isAdmin: false
   },
   {
-    path:'/admin/',
+    path:'/admin',
     element: <Admin.Home />,
     title:"Administracíon",
     isProtected: true,
     isAdmin: true
   },
   {
-    path:"/auth/login",
+    path:"/login",
     element: <Auth.Login />,
     title:"Inicio de sesión",
     isProtected: false,
     isAdmin: false
   },
   {
-    path:"/auth/register",
+    path:"/register",
     element: <Auth.Register />,
     title:"Registro de usuario",
     isProtected: false,
     isAdmin: false
   },
   {
-    path:"/auth/recover",
+    path:"/recover",
     element: <Auth.Recover />,
     title:"Recuperar cuenta",
     isProtected: false,
