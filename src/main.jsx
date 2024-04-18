@@ -4,7 +4,7 @@ import { PrimeReactProvider } from "primereact/api";
 import Tailwind from 'primereact/passthrough/tailwind';
 import './index.scss'
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import App from './app';
+import App from './App.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
