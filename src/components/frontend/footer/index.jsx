@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Logo from "../header/logo";
 import CopyRight from "../copyRight";
 import { Zustand } from "../../../libs";
+import { config } from '../../../../config'
 
 export default function Footer(){
   const {isLogin,isAdmin} = Zustand.useStore()
@@ -32,7 +33,7 @@ export default function Footer(){
           </ul>
         </div>
         <div className="space-y-4 text-center">
-          <a className="font-bold" target="_blank" href={`tel:+${import.meta.env.VITE_TELEPHONE}`}>
+          <a className="font-bold" target="_blank" href={`tel:+${config.telephone}`}>
             Contactar
           </a>
           {
