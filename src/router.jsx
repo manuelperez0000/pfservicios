@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { Admin, Auth, Frontend } from './pages';
+import { Admin, Auth, Checkout, Frontend } from './pages';
 
 
 
@@ -74,6 +74,13 @@ export const routes = [
     element: <Auth.Recover />,
     title:"Recuperar cuenta",
     isProtected: false,
+    isAdmin: false
+  },
+  {
+    path: "/checkout",
+    element: <Checkout />,
+    title:"Checkout",
+    isProtected: true,
     isAdmin: false
   },
   {

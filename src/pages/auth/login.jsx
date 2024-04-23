@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -10,6 +10,8 @@ import { FloatLabel } from 'primereact/floatlabel';
 import {  useNavigate } from "react-router-dom";
 import './inputs.scss'
 import { Zustand } from "../../libs";
+import { axios, cookieToken } from "../../utils";
+import { Toast } from "primereact/toast";
 
 
 const schema = yup.object({
@@ -22,10 +24,14 @@ const schema = yup.object({
 const Greetings = ({name})=>{return(<div className="text-center"><h3 className="text-3xl font-bold">Bienvenido {name}</h3> <h4 className="text-xl font-semibold">Presione el boton abajo para entrar a su cuenta</h4></div>)}
 
 const Footer = ()=>{
-    const {setAuthModal} = Zustand.useStore()
+    const {setAuthModal,isAdmin} = Zustand.useStore()
     const navigate = useNavigate(); 
     const onClick = ()=>{
-        navigate('/profile')
+        if(isAdmin === 'admin'){ 
+            navigate('/admin')
+        }else{
+            navigate('/profile')
+        }
         setAuthModal({open:false})
     }  
     return( <div className="flex justify-content-center"><button className="px-4 py-2 text-white duration-300 bg-primary hover:bg-secondary" onClick={onClick}>Aceptar</button></div> )
@@ -45,6 +51,7 @@ const LostPassword = ()=>{
 
 export default function Login() {
     const {setAuthModal,setIsLogin,setUserData,isLogin,setIsAdmin} = Zustand.useStore()
+    const toast = useRef(null);
     const navigate = useNavigate();
     const {
         register,
@@ -54,21 +61,42 @@ export default function Login() {
         resolver: yupResolver(schema),
       })
 
-      const onSubmit = (data) =>{
-        console.log(data)
+      const onSubmit = async (data) =>{
+        try {
+            const response =await axios.createAxios().post('/user/login',data)
+            const responseData = response.data
+            console.log(responseData);
+            if (response && response.status === 200) {
+                const {data:{username, email, phone, indentification,role},token} = responseData.data
+                setUserData({username, email, phone, indentification,role})
+                setIsLogin(true)
+                setIsAdmin(role)
+               // console.log(responseData);
+                cookieToken.setCookieToken(token)
+                setAuthModal({open:true, content:<Greetings name={data.username} />, title:"Acceso exitoso",setOpen:()=>{setAuthModal({open:false})},footer:<Footer />})
+            }
+            
+        } catch (error) {
+            const responseError = error.response.data
+            // console.log(responseError);
+             toast.current.show({ severity: 'error', summary: 'Error'  , detail: responseError.data.error, life: 3000 });
+        }
+
+
+       /*  console.log(data)
         console.log(errors);
         setIsLogin(true)
         const {email} = data
         const userData = {username:'Juan', email:email, phone:'12345678', role:'admin', indentification:'12345678'} 
         setUserData(userData)
         setIsAdmin('admin')
-        setAuthModal({open:true, content:<Greetings name={data.username} />, title:"Acceso exitoso",setOpen:()=>{setAuthModal({open:false})},footer:<Footer />})
+        setAuthModal({open:true, content:<Greetings name={data.username} />, title:"Acceso exitoso",setOpen:()=>{setAuthModal({open:false})},footer:<Footer />}) */
       }
       useEffect(()=>{
         if (isLogin) {
           navigate('/profile')
         }
-    },[])
+    },[isLogin])
 
     return (
         <>
@@ -101,6 +129,7 @@ export default function Login() {
                 <Divider/>
                 <LostPassword/>
             </Elements.CardComponent>
+            <Toast ref={toast} />
         </FrontendComponents.Layout.AuthLayout>
         </>
     )

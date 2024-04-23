@@ -10,6 +10,8 @@ import { FloatLabel } from 'primereact/floatlabel';
 import {  useNavigate } from "react-router-dom";
 import './inputs.scss'
 import { Zustand } from "../../libs";
+import { axios } from "../../utils";
+
 
 
 const schema = yup.object({
@@ -17,7 +19,7 @@ const schema = yup.object({
 }).required();
 
 // eslint-disable-next-line react/prop-types
-const Greetings = ({name})=>{return(<div className="text-center"><h3 className="text-3xl font-bold">Bienvenido {name}</h3> <h4 className="text-xl font-semibold">Presione el boton abajo para entrar a su cuenta</h4></div>)}
+const Greetings = ({name})=>{return(<div className="text-center"><h3 className="text-3xl font-bold">Bienvenido {name}</h3> <h4 className="text-xl font-semibold">Hemos enviado un correo para restablecer tu contraseña</h4></div>)}
 
 const Footer = ()=>{
     const {setAuthModal} = Zustand.useStore()
@@ -30,7 +32,7 @@ const Footer = ()=>{
 }
 export default function Recover(){
     const toast = useRef(null);
-    const {setAuthModal,setIsLogin,setUserData,isLogin,setIsAdmin} = Zustand.useStore()
+    const {setAuthModal,isLogin} = Zustand.useStore()
     const navigate = useNavigate();
     const {
         register,
@@ -40,21 +42,23 @@ export default function Recover(){
         resolver: yupResolver(schema),
       })
 
-      const onSubmit = (data) =>{
-        console.log(data)
-        console.log(errors);
-        setIsLogin(true)
+      const onSubmit =async (data) =>{
+
         const {recoverEmail} = data
-        const userData = {username:'Juan', email:'juanvs23@gmail.com', phone:'12345678', role:'admin', indentification:'12345678'}
-        
-        if (recoverEmail== userData.email) {
-            setUserData(userData)
-            setIsAdmin('admin')
-            setAuthModal({open:true, content:<Greetings name={data.username} />, title:"Acceso exitoso",setOpen:()=>{setAuthModal({open:false})},footer:<Footer />})
-            
-        }else{
-            toast.current.show({severity:'error', summary: 'Correo no encontrado', detail:'El correo no coincide con nuestros registros', life: 3000});
+
+        try {
+            const recoverResponse = await axios.createAxios().post('/user/forgotpassword', {email:recoverEmail})
+
+            console.log(recoverResponse.data)
+           if (recoverResponse.data.status===200 && recoverResponse.data.error===null) {
+            setAuthModal({open:true, content:<Greetings name={data.username} />, title:"Correo enviado",setOpen:()=>{setAuthModal({open:false})},footer:<Footer />})
+           }
+        } catch (error) {
+            const errorData = error.response.data;
+            console.log(errorData);
+            toast.current.show({severity:'error', summary: errorData.data.error, detail:'El correo no coincide con nuestros registros', life: 3000});
         }
+       
       }
     useEffect(()=>{
         if (isLogin) {
@@ -81,8 +85,6 @@ export default function Recover(){
             
            <button className="w-full py-3 text-center text-white duration-300 rounded-md bg-secondary hover:bg-primary">Recuperar contraseña</button>
            </form>      
-
-
 </Elements.CardComponent>
         </FrontendComponents.Layout.AuthLayout>
     </>

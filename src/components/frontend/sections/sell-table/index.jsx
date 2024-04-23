@@ -1,11 +1,15 @@
 import { Button } from 'primereact/button';
 import {Zustand} from '../../../../libs'
+import { useNavigate } from 'react-router-dom';
 
 
 export default function SellTable() {
-    const {setSelectOption} = Zustand.useStore()
+    const {setSelectOption,isLogin} = Zustand.useStore()
+    const navigate = useNavigate();
     const handlerSelect = (data) => {
         setSelectOption(data)
+        if(!isLogin) navigate('/login')
+        if (isLogin) navigate('/checkout')
 
     }
    
@@ -43,7 +47,7 @@ export default function SellTable() {
                         </li>
                     </ul>
                     <hr className="mx-0 mt-auto mb-3 border-top-1 border-bottom-none border-300" />
-                    <Button label="Contratar" onClick={()=>handlerSelect('Optimización de sistemas operativos')} className="w-full p-3 mt-auto" />
+                    <Button label="Contratar" onClick={()=>handlerSelect('optimization')} className="w-full p-3 mt-auto" />
                 </div>
             </div>
         </div>
@@ -72,7 +76,7 @@ export default function SellTable() {
                         </li>
                     </ul>
                     <hr className="mx-0 mt-auto mb-3 border-top-1 border-bottom-none border-300" />
-                    <Button label="Contratar" onClick={() => handlerSelect('Eliminación de virus de forma segura')} className="w-full p-3 mt-auto" />
+                    <Button label="Contratar" onClick={() => handlerSelect('eliminacion-de-virus')} className="w-full p-3 mt-auto" />
                 </div>
             </div>
         </div>
@@ -98,7 +102,7 @@ export default function SellTable() {
                         </li>
                     </ul>
                     <hr className="mx-0 mt-auto mb-3 border-top-1 border-bottom-none border-300" />
-                    <Button label="Contratar" onClick={() => handlerSelect('Asesoría en gestión de servidores')} className="w-full p-3 mt-auto" />
+                    <Button label="Contratar" onClick={() => handlerSelect('gestion-de-servidores')} className="w-full p-3 mt-auto" />
                 </div>
             </div>
         </div>

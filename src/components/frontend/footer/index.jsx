@@ -5,6 +5,7 @@ import { Zustand } from "../../../libs";
 
 export default function Footer(){
   const {isLogin,isAdmin} = Zustand.useStore()
+  //console.log(isAdmin);
     return(
         <footer className="w-full py-6 font-medium tracking-wide text-gray-500 border-t text-sm/relaxed bg-gray-50 dark:text-gray-400 dark:bg-gray-950">
       <div className="container grid gap-8 px-4 mx-auto md:grid-cols-3 lg:px-6">

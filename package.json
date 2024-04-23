@@ -12,17 +12,21 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
+    "axios": "^1.6.8",
     "bootstrap-icons": "^1.11.3",
     "flowbite": "^2.3.0",
+    "js-cookie": "^3.0.5",
     "primereact": "^10.6.3",
     "react": "^18.2.0",
     "react-countup": "^6.5.3",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.51.3",
+    "react-phone-input-2": "^2.15.1",
     "react-router-dom": "^6.22.3",
     "react-visibility-sensor": "^5.1.1",
     "yup": "^1.4.0",
+    "zukeeper": "^1.0.2",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

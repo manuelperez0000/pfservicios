@@ -7,6 +7,7 @@ import MobileMenu from "./MobileMenu";
 import Logo from "./logo";
 import WhatsappButton from "../whatsapp/whatsappButton";
 import { frontRoutes } from "../../../router";
+import LoginMenu from "./loginMenu";
 
 export default function HeaderComponent() {
   const [openMenu, setopenMenu] = useState(false);
@@ -42,6 +43,7 @@ export default function HeaderComponent() {
               <NavComponent router={frontRoutes}
               />
             </div>
+            <LoginMenu />
             <ButtonItem open={openMenu} setOpen={setopenMenu} />
           </div>
         </div>
@@ -57,6 +59,7 @@ export default function HeaderComponent() {
               <NavComponent router={frontRoutes}
               />
             </div>
+            <LoginMenu />
             <ButtonItem open={openMenu} setOpen={setopenMenu} />
           </div>
         </div>
