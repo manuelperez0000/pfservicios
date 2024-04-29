@@ -1,0 +1,41 @@
+.lateralNav{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    background-color: white;
+    z-index: 49;
+    transition: 0.3s all ease-in-out;
+    padding-top: 80px;
+    left: 0;
+    width: 70px;
+    &.open{
+        width: 270px;
+    }
+    @media  (max-width: 767px) {
+        width: 270px;
+        left: -350px;
+        &.open{
+            left: 0;;
+        }
+    }
+    @media (min-width: 768px) {
+        .text-items-title{
+            font-size: 0;
+            transition: 0;
+            opacity: 0;
+            transition: font-size 0.8s ease-in-out;
+            transition: opacity 1s ease-in-out;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        &.open{
+            .text-items-title{
+                font-size: 16px;
+                opacity: 1;
+            }
+        }
+    }
+
+}

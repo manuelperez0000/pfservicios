@@ -7,6 +7,7 @@ export const useStore = create((set) => ({
     isAdmin: false,
     selectOption: null,
     token: null,
+    openLateralNav: true,
     authModal:{
         open: false,
         setOpen: (data) => set((state) => ({ authModal: {...state.authModal, open: data} })),
@@ -14,6 +15,7 @@ export const useStore = create((set) => ({
         title: null,
         footer: null,
     },
+    setLateralNav: () => set((state) => ({ openLateralNav: !state.openLateralNav })),
     setToken: (data) => set((state) => ({ token: data })),
     setAuthModal: (data) => set((state) => ({ authModal: data })),
     setIsLogin: (data) => set((state) => ({ isLogin: data })),

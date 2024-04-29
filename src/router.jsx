@@ -3,83 +3,127 @@ import { Admin, Auth, Checkout, Frontend } from './pages';
 
 
 
+
 export const frontRoutes = [
   {
     path: "/#",
-    title:"Inicio"
+    title: "Inicio"
   },
   {
     path: "/#about",
-    title:"Quienes somos"
+    title: "Quienes somos"
   },
   {
     path: "/#services",
-    title:"Servicios"
+    title: "Servicios"
   },
   {
     path: "/#sell-table",
-    title:"Planes"
+    title: "Planes"
   }
 ]
 
 export const authRoutes = [
   {
     path: "/login",
-    title:"Iniciar sesión"
+    title: "Iniciar sesión"
   },
   {
     path: "/register",
-    title:"Registrarse"
+    title: "Registrarse"
   }
 ]
+
+export const adminRoutes = [
+  {
+    path: "/admin/users",
+    title: "Usuarios",
+    icon: 'bi bi-people'
+  },
+  {
+    path: "/admin/transactions",
+    title: "Transacciones",
+    icon: 'bi bi-currency-dollar'
+  },
+  {
+    path: "/",
+    title: "Cerrar sesión",
+    icon: 'bi bi-box-arrow-left',
+    action: 'logout'
+  }
+]
+
 
 export const routes = [
   {
     path: "/",
     element: <Frontend.HomePage />,
-    title:"Inicio",
+    title: "Inicio",
     isProtected: false,
     isAdmin: false
   },
   {
     path: "/profile",
     element: <Frontend.ProfilePage />,
-    title:"Perfil",
+    title: "Perfil",
     isProtected: true,
     isAdmin: false
   },
   {
-    path:'/admin',
+    path: '/admin',
     element: <Admin.Home />,
-    title:"Administracíon",
+    title: "Administracíon",
     isProtected: true,
-    isAdmin: true
+    isAdmin: true,
+    children: [
+      {
+        path: "/admin/users",
+        element: <Admin.AdminUsers />,
+        title: "Administracíon",
+        isProtected: true,
+        isAdmin: true
+      },
+      {
+        path: "/admin",
+        element: <Admin.Home />,
+        title: "Administracíon",
+        isProtected: true,
+        isAdmin: true
+      },
+      {
+        path: "/admin/transactions",
+        element: <Admin.Transactions />,
+        title: "Administracíon",
+        isProtected: true,
+        isAdmin: true
+      }
+    ]
   },
   {
-    path:"/login",
+    path: "/login",
     element: <Auth.Login />,
-    title:"Inicio de sesión",
+    title: "Inicio de sesión",
     isProtected: false,
     isAdmin: false
   },
   {
-    path:"/register",
+    path: "/register",
     element: <Auth.Register />,
-    title:"Registro de usuario",
+    title: "Registro de usuario",
     isProtected: false,
     isAdmin: false
   },
   {
-    path:"/recover",
+    path: "/recover",
     element: <Auth.Recover />,
-    title:"Recuperar cuenta",
+    title: "Recuperar cuenta",
     isProtected: false,
     isAdmin: false
   },
   {
     path: "/checkout",
     element: <Checkout />,
-    title:"Checkout",
+    title: "Checkout",
     isProtected: true,
     isAdmin: false
   },

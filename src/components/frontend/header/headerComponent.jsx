@@ -37,7 +37,7 @@ export default function HeaderComponent() {
         style={{ top: scrollMenu ? "0" : "-150px" }}
       >
         <div className="container flex items-center justify-between w-full px-4">
-          <Logo />
+          <Logo logoUrl={'/'} />
           <div className="flex items-center justify-end gap-2 menu-section">
             <div className="hidden md:block">
               <NavComponent router={frontRoutes}

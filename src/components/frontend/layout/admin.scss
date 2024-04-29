@@ -1,0 +1,13 @@
+.main-content{
+    padding-left: 85px;
+    padding-top: 85px;
+    @media (max-width: 767px) {
+        padding-left: 12px;
+    }
+    &.open{
+        padding-left: 285px;
+        @media (max-width: 767px) {
+            padding-left: 12px;
+        }
+    }
+}
