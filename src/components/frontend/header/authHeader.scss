@@ -14,3 +14,40 @@
     }
   }
 }
+nav.mobile-menu {
+  position: fixed;
+  height: 100vh;
+  z-index: 99;
+  width: 241px;
+  display: flex;
+  padding: 20px;
+  background: white;
+  justify-content: center;
+  box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s ease-in-out;
+  left: -350px;
+  .brand {
+    position: fixed;
+    svg {
+      width: 200px;
+      display: block;
+      .cls-1 {
+        fill: #fff;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: 0.25px;
+      }
+    }
+  }
+  top: 0;
+  ul li a {
+    font-size: 20px;
+    padding: 10px;
+  }
+  &.open {
+    left: 0;
+  }
+  @media (min-width: 767px) {
+    display: none !important;
+  }
+}

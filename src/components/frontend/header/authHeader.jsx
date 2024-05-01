@@ -1,9 +1,10 @@
-import './authHeader.scss'
-import { authRoutes } from "../../../router";
+import { authRoutes, loggedRoute } from "../../../router";
+import { Zustand } from '../../../libs';
 import Logo from "./logo";
 import NavComponent from "./navComponent";
-import { Zustand } from '../../../libs';
 import LoginMenu from './loginMenu';
+import './authHeader.scss'
+import ButtonItem from "./buttonItem";
 
 export default function AuthHeader() {
   const { isLogin } = Zustand.useStore()
@@ -15,11 +16,11 @@ export default function AuthHeader() {
       <div className="container flex items-center justify-between w-full px-4">
         <Logo logoUrl={'/'} />
         <div className="flex items-center justify-end gap-2 menu-section">
-          <div className="">
-            {
-              isLogin ? <LoginMenu /> : <NavComponent router={authRoutes} />
-            }
-          </div>
+
+          {
+            isLogin ? (<div className="flex items-center justify-end gap-2 "> <div className="hidden md:block"> <NavComponent router={loggedRoute} />  </div> <LoginMenu />  <ButtonItem /></div>) : <div className="flex items-center justify-end gap-2 "> <div className="hidden md:block"> <NavComponent router={authRoutes} /> </div>  <ButtonItem /></div>
+          }
+
         </div>
       </div>
     </header>

@@ -7,7 +7,6 @@ import { Elements, FrontendComponents } from "../../components";
 import { Divider } from "primereact/divider";
 import { InputText } from "primereact/inputtext";
 import { FloatLabel } from 'primereact/floatlabel';
-import { useNavigate } from "react-router-dom";
 import './inputs.scss'
 import { Zustand } from "../../libs";
 import { axios, cookieToken } from "../../utils";
@@ -18,37 +17,6 @@ const schema = yup.object({
     email: yup.string().email('Debe ser un correo valido').required("El correo es requerido"),
     newpassword: yup.string().required("La contraseña es requerida"),
 }).required();
-
-
-// eslint-disable-next-line react/prop-types
-const Greetings = ({ name }) => { return (<div className="text-center"><h3 className="text-3xl font-bold">Bienvenido {name}</h3> <h4 className="text-xl font-semibold">Presione el boton abajo para entrar a su cuenta</h4></div>) }
-
-const Footer = () => {
-    const { setAuthModal, isAdmin } = Zustand.useStore()
-    const navigate = useNavigate();
-    const onClick = () => {
-        if (isAdmin === 'admin') {
-            navigate('/admin')
-        } else {
-            navigate('/profile')
-        }
-        setAuthModal({ open: false })
-    }
-    return (<div className="flex justify-content-center"><button className="px-4 py-2 text-white duration-300 bg-primary hover:bg-secondary" onClick={onClick}>Aceptar</button></div>)
-}
-
-const LostPassword = () => {
-    const navigate = useNavigate();
-    const getRecover = () => {
-        navigate('/recover')
-    }
-    const getRegister = () => {
-        navigate('/register')
-    }
-    return (<div className="flex flex-col justify-content-end"> <span className="text-white">¿Olvidaste tu contraseña? <button onClick={getRecover} className="duration-300 text-primary hover:text-secondary">Recuperar contraseña</button></span> <span className="text-white">¿No tienes una cuenta? <button onClick={getRegister} className="duration-300 text-primary hover:text-secondary">Registrate</button></span> </div>)
-}
-
-
 export default function Login() {
     const { setAuthModal, setIsLogin, setUserData, setIsAdmin } = Zustand.useStore()
     const toast = useRef(null);
@@ -75,7 +43,7 @@ export default function Login() {
                 if (role === 'admin') {
                     cookieToken.setCookieToken({ cookieName: 'adminToken', token: 'true' })
                 }
-                setAuthModal({ open: true, content: <Greetings name={data.username} />, title: "Acceso exitoso", setOpen: () => { setAuthModal({ open: false }) }, footer: <Footer /> })
+                setAuthModal({ open: true, content: <Elements.Greetings title={`Bienvenido ${username}`} text={'Presione el botón abajo para entrar a su cuenta'} />, title: "Acceso exitoso", setOpen: () => { setAuthModal({ open: false }) }, footer: <Elements.FooterModal /> })
             }
 
         } catch (error) {
@@ -107,7 +75,7 @@ export default function Login() {
                                 <FloatLabel className="flex flex-col w-full gap-2 pass">
                                     <label htmlFor="newpassword">Contraseña</label>
                                     <Elements.PasswordInput register={register} placeholder="Contraseña" indicator="newpassword" />
-                                    {/*     <Password id="newpassword" className="block w-full"  {...register("newpassword")} placeholder="Contraseña"  feedback={false} tabIndex={1}  toggleMask/> */}
+
                                     {errors.newpassword && <p className="text-red-500">{errors.newpassword.message}</p>}
                                 </FloatLabel>
                             </div>
@@ -115,7 +83,7 @@ export default function Login() {
                         <button className="w-full py-3 text-center text-white duration-300 rounded-md bg-secondary hover:bg-primary">Iniciar sesión</button>
                     </form>
                     <Divider />
-                    <LostPassword />
+                    <Elements.LostPassword />
                 </Elements.CardComponent>
                 <Toast ref={toast} />
             </FrontendComponents.Layout.AuthLayout>

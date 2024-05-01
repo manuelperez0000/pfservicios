@@ -6,18 +6,10 @@ import { Column } from 'primereact/column';
 import { axios } from "../../utils"
 import { Zustand } from '../../libs';
 import { Toast } from 'primereact/toast';
+import { DateComponent } from '../../components/elements';
 
 
 
-
-const DateComponent = (user) => {
-    //console.log(user);
-    const date = new Date(user.createdAt)
-    const day = date.getDate()
-    const month = date.getMonth() + 1
-    const year = date.getFullYear()
-    return `${day}/${month}/${year}`
-}
 
 const statusType = [
     {

@@ -41,6 +41,11 @@ export default function Checkout() {
     const selectOptions = [
 
         {
+            label: 'Seleccione una opción',
+            value: ''
+        },
+
+        {
             label: 'Optimización de sistemas operativos',
             value: 'optimization'
         },
@@ -54,8 +59,8 @@ export default function Checkout() {
         }
     ]
 
-    console.log(selectOption, userData);
-    const [value, setValue] = useState(selectOption);
+    //console.log(selectOption, userData);
+    const [servicesSelected, setservicesSelected] = useState(selectOption);
     const [amount, setAmount] = useState(null);
     const [accessToken, setAccessToken] = useState(null);
     const [openDialog, setOpenDialog] = useState(false);
@@ -64,6 +69,7 @@ export default function Checkout() {
 
 
     const getDescriptionByOption = (option) => {
+        if (!option || option === null) return;
         const description = selectOptions.find((item) => item.value === option).label
         return description;
     }
@@ -79,6 +85,12 @@ export default function Checkout() {
         GetAccessToken();
     }, [])
 
+    useEffect(() => {
+        if (checked === options[0]) {
+            setOpenDialog(false)
+        }
+    }, [checked])
+
     return (
         <FrontendComponents.Layout.AuthLayout bgBackground="https://picsum.photos/1920/1080">
             <Elements.CardComponent title="Checkout" subtitle="Selecciona el servicio y el método de pago">
@@ -90,9 +102,9 @@ export default function Checkout() {
                         id="selectOption"
                         name="selectOption"
                         className="w-full min-w-full"
-                        value={value}
+                        value={servicesSelected || ''}
                         options={selectOptions}
-                        onChange={(e) => setValue(e.value)}
+                        onChange={(e) => setservicesSelected(e.value)}
                     />
 
                 </div>
@@ -110,7 +122,7 @@ export default function Checkout() {
                 <div className="flex justify-center w-full pb-10">
                     <button
                         type="button"
-                        disabled={value && amount ? false : true}
+                        disabled={servicesSelected && amount ? false : true}
                         className={`px-6 py-2 mr-3 font-bold text-white uppercase rounded-md disabled:opacity-50 bg-primary hover:bg-secondary disabled:cursor-not-allowed`}
                         onClick={() => setOpenDialog(true)}>Pagar</button>
                 </div>
@@ -120,7 +132,7 @@ export default function Checkout() {
                         <div className="flex flex-col flex-wrap items-center justify-center w-full gap-2">
                             <div className="w-12/12">
                                 <p className="pb-4 text-lg text-center semi-bold">
-                                    Yo, <b className="text-xl bold text-primary">{userData.username} </b> de la persona, titular del correo de cuenta PayPal <b className="text-xl bold text-primary">{userData.email}</b>, he realizado el pago de <b className="text-xl bold text-primary">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount)} USD</b> por el servicio <b className="text-xl bold text-primary">{getDescriptionByOption(value)}</b> realizados conscientemente por mi persona y a mi entera satisfacción, quedando totalmente satisfecho con el servicio profesional recibidos, renunciando a cualquier tipo de reembolso.
+                                    Yo, <b className="text-xl bold text-primary">{userData.username} </b> de la persona, titular del correo de cuenta PayPal <b className="text-xl bold text-primary">{userData.email}</b>, he realizado el pago de <b className="text-xl bold text-primary">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount)} USD</b> por el servicio <b className="text-xl bold text-primary">{getDescriptionByOption(servicesSelected)}</b> realizados conscientemente por mi persona y a mi entera satisfacción, quedando totalmente satisfecho con el servicio profesional recibidos, renunciando a cualquier tipo de reembolso.
                                 </p>
                             </div>
 
@@ -143,7 +155,7 @@ export default function Checkout() {
                                             return actions.order.create({
                                                 purchase_units: [
                                                     {
-                                                        description: getDescriptionByOption(value),
+                                                        description: getDescriptionByOption(servicesSelected),
                                                         amount: {
                                                             value: amount,
                                                             currency_code: "USD"
@@ -156,7 +168,7 @@ export default function Checkout() {
                                             const order = await actions.order.capture();
                                             axios.createAxios().post(`/order/create`, {
                                                 user: userData,
-                                                description: getDescriptionByOption(value),
+                                                description: getDescriptionByOption(servicesSelected),
                                                 amount: new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount),
                                                 paymentMethod: {
                                                     payment_gateway: 'paypal',
@@ -175,9 +187,6 @@ export default function Checkout() {
                                                 console.log(err)
                                                 toast.current.show({ severity: 'error', summary: 'Error', detail: 'No se pudo revisar el pago', life: 3000 });
                                             })
-
-                                            // Aqui enviaremos la orden a la base de datos
-
                                         }}
                                     />
                                 </PayPalScriptProvider>)

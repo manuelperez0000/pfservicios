@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Zustand } from '../../../libs';
 function XmarkIcon() {
   return (
     <svg
@@ -24,13 +25,12 @@ function BarsIcon() {
   );
 }
 
-export default function ButtonItem({
-  open,
-  setOpen,
-}) {
-  const activeIcon = open ? <XmarkIcon /> : <BarsIcon />;
+export default function ButtonItem() {
+
+  const { setLateralNav, openLateralNav } = Zustand.useStore()
+  const activeIcon = !openLateralNav ? <XmarkIcon /> : <BarsIcon />;
   return (
-    <button className="block md:hidden openMenu" onClick={() => setOpen(!open)}>
+    <button className="block md:hidden openMenu" onClick={setLateralNav}>
       {activeIcon}
     </button>
   );

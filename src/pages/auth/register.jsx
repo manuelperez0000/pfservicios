@@ -29,25 +29,10 @@ const schema = yup.object({
         .oneOf([yup.ref("newpassword")], "Las contraseñas no coinciden").required("Confirme la contraseña"),
 }).required();
 
-// eslint-disable-next-line react/prop-types
-const Greetings = ({ name }) => { return (<div className="text-center"><h3 className="text-3xl font-bold">Gracias por registrarte {name}</h3> <h4 className="text-xl font-semibold">Presione el boton abajo para entrar a su cuenta</h4></div>) }
-const Footer = () => {
-    const { setAuthModal, selectOption } = Zustand.useStore()
-    const navigate = useNavigate();
-    const onClick = () => {
-        if (selectOption) {
-            navigate('/checkout')
-        } else {
-            navigate('/profile')
 
-        }
-        setAuthModal({ open: false })
-    }
-    return (<div className="flex justify-content-center"><button className="px-4 py-2 text-white duration-300 bg-primary hover:bg-secondary" onClick={onClick}>Aceptar</button></div>)
-}
 
 export default function Register() {
-    const { setAuthModal, setIsLogin, setUserData, isLogin, setIsAdmin, selectOption } = Zustand.useStore()
+    const { setAuthModal, setIsLogin, setUserData, isLogin, setIsAdmin } = Zustand.useStore()
     const navigate = useNavigate();
     const toast = useRef(null);
     const {
@@ -72,7 +57,7 @@ export default function Register() {
                 setIsLogin(true)
                 setIsAdmin(role)
                 cookieToken.setCookieToken(token)
-                setAuthModal({ open: true, content: <Greetings name={data.username} />, title: "Usuario creado", setOpen: () => { setAuthModal({ open: false }) }, footer: <Footer /> })
+                setAuthModal({ open: true, content: <Elements.Greetings title={`Gracias por registrarte ${username}`} text={"Presione el botón abajo para entrar a su cuenta o continuar con su compra"} />, title: "Usuario creado", setOpen: () => { setAuthModal({ open: false }) }, footer: <Elements.FooterModal /> })
             }
 
         } catch (error) {
@@ -83,7 +68,7 @@ export default function Register() {
     }
 
     useEffect(() => {
-        console.log(selectOption);
+
         if (isLogin) {
             navigate('/profile')
         }
@@ -133,7 +118,7 @@ export default function Register() {
                                                     placeholder="Ej. +58000-000-0000"
                                                     localization={es}
                                                     country={'ve'}
-                                                    className="m-0 w-full font-sans text-white/80 bg-gray-900 border border-blue-900/40 transition-colors duration-200 appearance-none rounded-lg hover:border-blue-500 focus:outline-none focus:shadow-[0_0_0_0.2rem_rgba(147,197,253,0.5)] p-3 text-base"
+                                                    className="m-0 w-full font-sans dark:text-white/80 dark:bg-gray-900 border border-blue-900/40 transition-colors duration-200 appearance-none rounded-lg hover:border-blue-500 focus:outline-none focus:shadow-[0_0_0_0.2rem_rgba(147,197,253,0.5)] p-3 text-base"
 
                                                     type="text"
                                                     id="phone"

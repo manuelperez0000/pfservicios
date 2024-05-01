@@ -10,7 +10,7 @@ import { cookieToken } from "../../../utils";
 
 
 const LoginButton = ({ navigation }) => {
-    return <button title="Iniciar Sesion" onClick={navigation} className="px-3 py-1 mr-3 font-bold text-white uppercase rounded-md bg-primary hover hover:bg-secondary"> <i className="text-lg bi bi-person"></i> </button>
+    return <button title="Iniciar Sesion" onClick={navigation} className="px-3 py-1 mr-3 text-xs font-bold text-white uppercase rounded-md lg:text-base bg-primary hover hover:bg-secondary"> Iniciar Sesión <i className="text-lg bi bi-person"></i> </button>
 }
 
 const LoginContextMenu = ({ resetMenu, navigate, isAdmin, userData }) => {

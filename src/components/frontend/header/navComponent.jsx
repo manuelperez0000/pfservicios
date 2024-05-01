@@ -3,20 +3,20 @@ import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 
-const  LinHref = ({path,title}) =>  <a href={path}>{title}</a>
+const LinHref = ({ path, title }) => <a href={path}>{title}</a>
 
-function NavComponent({router,isLink}) {
+function NavComponent({ router }) {
   return (
     <nav className="flex items-center justify-center gap-4 menu">
       <ul className="flex flex-col items-center justify-between gap-4 md:flex-row">
         {router.map((route) => {
           const isActive = window.location.pathname === route.path;
-          return route.title &&  (
+          return route.title && (
             <li
               className={`${isActive ? "active" : ""} nav-link `}
               key={route.title}
             >
-             {isLink ?<Link to={route.path}>{route.title}</Link>:<LinHref path={route.path} title={route.title}/>}
+              {route.isLink ? <Link to={route.path}>{route.title}</Link> : <LinHref path={route.path} title={route.title} />}
             </li>
           );
         })}

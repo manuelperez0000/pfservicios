@@ -1,6 +1,6 @@
-import React from "react";
 import { Link } from "react-router-dom";
-export default function Logo({logoUrl}) {
+// eslint-disable-next-line react/prop-types
+export default function Logo({ logoUrl }) {
   return (
     <div className="brand">
       <Link
@@ -12,3 +12,5 @@ export default function Logo({logoUrl}) {
     </div>
   );
 }
+
+

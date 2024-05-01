@@ -101,7 +101,7 @@ export function FormInput(props) {
                         placeholder="Ej. +58000-000-0000"
                         localization={es}
                         country={'ve'}
-                        className="m-0 w-full font-sans text-white/80 bg-gray-900 border border-blue-900/40 transition-colors duration-200 appearance-none rounded-lg hover:border-blue-500 focus:outline-none focus:shadow-[0_0_0_0.2rem_rgba(147,197,253,0.5)] p-3 text-base"
+                        className="m-0 w-full font-sans  border border-blue-900/40 transition-colors duration-200 appearance-none rounded-lg hover:border-blue-500 focus:outline-none focus:shadow-[0_0_0_0.2rem_rgba(147,197,253,0.5)] p-3 text-base"
 
                         type="text"
                         id={props.id}

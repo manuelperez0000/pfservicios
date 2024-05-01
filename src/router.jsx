@@ -2,35 +2,60 @@ import { createBrowserRouter } from 'react-router-dom';
 import { Admin, Auth, Checkout, Frontend } from './pages';
 
 
-
-
 export const frontRoutes = [
   {
     path: "/#",
-    title: "Inicio"
+    title: "Inicio",
+    isLink: false
   },
   {
     path: "/#about",
-    title: "Quienes somos"
+    title: "Quienes somos",
+    isLink: false
   },
   {
     path: "/#services",
-    title: "Servicios"
+    title: "Servicios",
+    isLink: false
   },
   {
     path: "/#sell-table",
-    title: "Planes"
+    title: "Planes",
+    isLink: false
   }
 ]
-
+export const loggedRoute = [
+  {
+    path: "/",
+    title: "Inicio",
+    isLink: true
+  },
+  {
+    path: "/profile",
+    title: "Mi perfil",
+    isLink: true
+  },
+  {
+    path: `/checkout`,
+    title: "Checkout",
+    isLink: true
+  }
+]
 export const authRoutes = [
   {
+    path: "/",
+    title: "Inicio",
+    isLink: true
+  },
+  {
     path: "/login",
-    title: "Iniciar sesión"
+    title: "Iniciar sesión",
+    isLink: true
   },
   {
     path: "/register",
-    title: "Registrarse"
+    title: "Registrarse",
+    isLink: true
   }
 ]
 

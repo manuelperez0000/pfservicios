@@ -7,6 +7,7 @@ import { TabMenu } from 'primereact/tabmenu';
 import { Dialog } from 'primereact/dialog';
 import { ScrollPanel } from 'primereact/scrollpanel';
 import { Elements } from '../../components';
+import { DateComponent, TimeComponent } from '../../components/elements';
 
 
 
@@ -22,13 +23,9 @@ const statusColor = [
     'red-500'
 ]
 
-const DateComponent = (user) => {
-    return new Date(user.createdAt).toLocaleDateString('en-GB')
-}
 
-const TimeComponent = (user) => {
-    return new Date(user.createdAt).toLocaleTimeString('en-GB')
-}
+
+
 
 const DiferenceComponent = (user) => {
     return user.user.email === user.paymentMethod.paymentOrder.payer.email_address ? <div className='text-center text-green-500'>Si</div> : <div className='text-center text-red-500'>No</div>

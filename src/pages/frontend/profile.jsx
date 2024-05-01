@@ -9,7 +9,7 @@ export default function Profile() {
     const navigate = useNavigate();
     useEffect(() => {
         if (!isLogin) navigate('/login')
-    })
+    }, [])
     return (
         <>
             <Helmet >
