@@ -10,7 +10,6 @@ import { frontRoutes } from "../../../router";
 import LoginMenu from "./loginMenu";
 
 export default function HeaderComponent() {
-  const [openMenu, setopenMenu] = useState(false);
   const [scrollMenu, setscrollMenu] = useState(false);
 
   useEffect(() => {
@@ -44,7 +43,7 @@ export default function HeaderComponent() {
               />
             </div>
             <LoginMenu />
-            <ButtonItem open={openMenu} setOpen={setopenMenu} />
+            <ButtonItem />
           </div>
         </div>
       </header>
@@ -56,15 +55,14 @@ export default function HeaderComponent() {
           <Logo />
           <div className="flex items-center justify-end gap-2 menu-section">
             <div className="hidden md:block">
-              <NavComponent router={frontRoutes}
-              />
+              <NavComponent router={frontRoutes} />
             </div>
             <LoginMenu />
-            <ButtonItem open={openMenu} setOpen={setopenMenu} />
+            <ButtonItem />
           </div>
         </div>
       </header>
-      <MobileMenu open={openMenu} />
+      <MobileMenu routes={frontRoutes} />
       <WhatsappButton show={scrollMenu} />
     </>
   );

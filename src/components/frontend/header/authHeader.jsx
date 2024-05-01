@@ -5,6 +5,7 @@ import NavComponent from "./navComponent";
 import LoginMenu from './loginMenu';
 import './authHeader.scss'
 import ButtonItem from "./buttonItem";
+import MobileMenu from "./MobileMenu";
 
 export default function AuthHeader() {
   const { isLogin } = Zustand.useStore()
@@ -18,11 +19,12 @@ export default function AuthHeader() {
         <div className="flex items-center justify-end gap-2 menu-section">
 
           {
-            isLogin ? (<div className="flex items-center justify-end gap-2 "> <div className="hidden md:block"> <NavComponent router={loggedRoute} />  </div> <LoginMenu />  <ButtonItem /></div>) : <div className="flex items-center justify-end gap-2 "> <div className="hidden md:block"> <NavComponent router={authRoutes} /> </div>  <ButtonItem /></div>
+            isLogin ? (<div className="flex items-center justify-end gap-2 "> <div className="hidden md:block"> <NavComponent router={loggedRoute} />  </div> <LoginMenu />  <ButtonItem /> <MobileMenu routes={loggedRoute} /></div>) : <div className="flex items-center justify-end gap-2 "> <div className="hidden md:block"> <NavComponent router={authRoutes} /> </div>  <ButtonItem /><MobileMenu routes={authRoutes} /></div>
           }
 
         </div>
       </div>
+
     </header>
   )
 }

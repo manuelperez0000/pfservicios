@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 const LinHref = ({ path, title }) => <a href={path}>{title}</a>
 
 function NavComponent({ router }) {
+  console.log(router);
   return (
     <nav className="flex items-center justify-center gap-4 menu">
       <ul className="flex flex-col items-center justify-between gap-4 md:flex-row">
