@@ -1,83 +1,36 @@
 /* eslint-disable no-irregular-whitespace */
-import { useState, useEffect, useRef } from "react";
-import {
-    PayPalScriptProvider,
-    PayPalButtons
-} from "@paypal/react-paypal-js";
-import generatePDF from "react-to-pdf";
 
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { Elements, FrontendComponents } from "../../components";
-import { Zustand } from "../../libs";
-
 import { Dropdown } from 'primereact/dropdown';
 import { InputNumber } from "primereact/inputnumber";
-import { config } from '../../../config'
 import { SelectButton } from "primereact/selectbutton";
 import { Dialog } from "primereact/dialog";
 import { ScrollPanel } from "primereact/scrollpanel";
 import { axios } from "../../utils";
 import { Toast } from "primereact/toast";
-
-
+import useCheckout from "./useCheckout";
 
 const clientId = import.meta.env.VITE_CLIENT_ID;
 
-
-
-
-
 export default function Checkout() {
-    const targetRef = useRef();
-    const toast = useRef(null);
-    const { selectOption, userData } = Zustand.useStore();
-    const [orderData, setOrderData] = useState({})
-    const options = ['No', 'Si'];
-    const downloadPdf = () => generatePDF(targetRef, {
-        filename: `${orderData.id}.pdf`,
-        page: {
-            margin: 20
-        }
-    });
-    const selectOptions = [
 
-        {
-            label: 'Optimización de sistemas operativos',
-            value: 'optimization'
-        },
-        {
-            label: 'Eliminación de virus de forma segura',
-            value: 'eliminacion-de-virus'
-        },
-        {
-            label: 'Asesoría en gestión de servidores',
-            value: 'gestion-de-servidores'
-        }
-    ]
+    const { downloadPdf, targetRef, value, selectOptions, setValue, amount, setOpenDialog, openDialog,
+        userData,
+        checked,
+        setChecked,
+        accessToken,
+        options,
+        getDescriptionByOption,
+        setOrderData,
+        setShowBill,
+        setAmount,
+        toast,
+        showBill,
+        orderData
+    } = useCheckout()
 
-    console.log(selectOption, userData);
-    const [value, setValue] = useState(selectOption);
-    const [amount, setAmount] = useState(null);
-    const [accessToken, setAccessToken] = useState(null);
-    const [openDialog, setOpenDialog] = useState(false);
-    const [checked, setChecked] = useState(options[0]);
-    const [showBill, setShowBill] = useState(false);
-
-
-    const getDescriptionByOption = (option) => {
-        const description = selectOptions.find((item) => item.value === option).label
-        return description;
-    }
-
-    const GetAccessToken = async () => {
-        const url = `${config.devServerUrl}/api/paypal/gettoken`;
-        const getToken = await fetch(url)
-        const data = await getToken.json();
-        setAccessToken(data);
-    }
-    useEffect(() => {
-
-        GetAccessToken();
-    }, [])
+    /* console.log(selectOption, userData); */
 
     return (
         <FrontendComponents.Layout.AuthLayout bgBackground="https://picsum.photos/1920/1080">
@@ -112,7 +65,8 @@ export default function Checkout() {
                         type="button"
                         disabled={value && amount ? false : true}
                         className={`px-6 py-2 mr-3 font-bold text-white uppercase rounded-md disabled:opacity-50 bg-primary hover:bg-secondary disabled:cursor-not-allowed`}
-                        onClick={() => setOpenDialog(true)}>Pagar</button>
+                        onClick={() => setOpenDialog(true)}>Pagar
+                    </button>
                 </div>
                 <Dialog visible={openDialog} breakpoints={{ '960px': '75vw', '641px': '100vw' }} style={{ width: '50vw' }} onHide={() => { setChecked(options[0]); setOpenDialog(false) }}>
 
@@ -123,64 +77,56 @@ export default function Checkout() {
                                     Yo, <b className="text-xl bold text-primary">{userData.username} </b> de la persona, titular del correo de cuenta PayPal <b className="text-xl bold text-primary">{userData.email}</b>, he realizado el pago de <b className="text-xl bold text-primary">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount)} USD</b> por el servicio <b className="text-xl bold text-primary">{getDescriptionByOption(value)}</b> realizados conscientemente por mi persona y a mi entera satisfacción, quedando totalmente satisfecho con el servicio profesional recibidos, renunciando a cualquier tipo de reembolso.
                                 </p>
                             </div>
-
-
                         </div>
-
                     </ScrollPanel>
                     <div className="flex justify-center w-full pt-4">
                         <SelectButton className="flex justify-center" value={checked} onChange={(e) => setChecked(e.value)} options={options} />
                     </div>
                     <div className="block w-full pt-6">
                         <div className="flex justify-center flex-1 mx-auto">
-                            {
-                                accessToken && amount && checked === options[1] && (<PayPalScriptProvider options={{
-                                    clientId: clientId
-                                }}>
-                                    <PayPalButtons
-                                        createOrder={(data, actions) => {
-
-                                            return actions.order.create({
-                                                purchase_units: [
-                                                    {
-                                                        description: getDescriptionByOption(value),
-                                                        amount: {
-                                                            value: amount,
-                                                            currency_code: "USD"
-                                                        }
-                                                    }
-                                                ]
-                                            })
-                                        }}
-                                        onApprove={async (data, actions) => {
-                                            const order = await actions.order.capture();
-                                            axios.createAxios().post(`/order/create`, {
-                                                user: userData,
+                            {accessToken && amount && checked === options[1] && (<PayPalScriptProvider options={{ clientId: clientId }}>
+                                <PayPalButtons createOrder={(data, actions) => {
+                                    return actions.order.create({
+                                        purchase_units: [
+                                            {
                                                 description: getDescriptionByOption(value),
-                                                amount: new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount),
-                                                paymentMethod: {
-                                                    payment_gateway: 'paypal',
-                                                    paymentOrder: order
-                                                },
-                                                accepted: checked,
-                                            }).then(res => {
-                                                const { data } = res.data;
-                                                console.log(data);
-                                                setOpenDialog(false);
-                                                setOrderData(order);
-                                                setChecked(options[0]);
-                                                setShowBill(true);
-                                                setAmount(null);
-                                            }).catch(err => {
-                                                console.log(err)
-                                                toast.current.show({ severity: 'error', summary: 'Error', detail: 'No se pudo revisar el pago', life: 3000 });
-                                            })
+                                                amount: {
+                                                    value: amount,
+                                                    currency_code: "USD"
+                                                }
+                                            }
+                                        ]
+                                    })
+                                }}
+                                    onApprove={async (data, actions) => {
+                                        const order = await actions.order.capture();
+                                        axios.createAxios().post(`/order/create`, {
+                                            user: userData,
+                                            description: getDescriptionByOption(value),
+                                            amount: new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount),
+                                            paymentMethod: {
+                                                payment_gateway: 'paypal',
+                                                paymentOrder: order
+                                            },
+                                            accepted: checked,
+                                        }).then(res => {
+                                            const { data } = res.data;
+                                            console.log(data);
+                                            setOpenDialog(false);
+                                            setOrderData(order);
+                                            setChecked(options[0]);
+                                            setShowBill(true);
+                                            setAmount(null);
+                                        }).catch(err => {
+                                            console.log(err)
+                                            toast.current.show({ severity: 'error', summary: 'Error', detail: 'No se pudo revisar el pago', life: 3000 });
+                                        })
 
-                                            // Aqui enviaremos la orden a la base de datos
+                                        // Aqui enviaremos la orden a la base de datos
 
-                                        }}
-                                    />
-                                </PayPalScriptProvider>)
+                                    }}
+                                />
+                            </PayPalScriptProvider>)
                             }
                         </div>
                     </div>

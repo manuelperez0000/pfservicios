@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef } from "react";
 import { Helmet } from "react-helmet";
 import { Controller, useForm } from "react-hook-form"
@@ -95,10 +96,10 @@ export default function Register() {
                 <title>PFServicios | Registrarse</title>
             </Helmet>
             <FrontendComponents.Layout.AuthLayout bgBackground="/register.jpg">
-                <Elements.CardComponent title={<h1 className="text-center">Registrarse</h1>} subtitle="" >
+                <Elements.CardComponent title={<h1 className="text-center text-blue-500">Registrarse</h1>} subtitle="" >
                     <Divider />
                     <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                        <div className="container flex flex-col gap-4 md:flex-row">
+                        <div className="container flex flex-col gap-4 md:flex-row text-blue-900">
                             <div className="w-full pb-3 md:w-6/12">
                                 <FloatLabel className="flex flex-col w-full gap-2">
                                     <label htmlFor="username">Nombre</label>
@@ -106,7 +107,7 @@ export default function Register() {
                                     {errors.username && <p className="text-red-500">{errors.username.message}</p>}
                                 </FloatLabel>
                             </div>
-                            <div className="w-full pb-3 md:w-6/12">
+                            <div className="w-full pb-3 md:w-6/12 text-blue-900">
                                 <FloatLabel className="flex flex-col w-full gap-2">
                                     <label htmlFor="email">Correo</label>
                                     <InputText id="email" {...register("email")} placeholder="Ej. juan@pfservicios" />
@@ -114,7 +115,7 @@ export default function Register() {
                                 </FloatLabel>
                             </div>
                         </div>
-                        <div className="container flex flex-col gap-4 md:flex-row">
+                        <div className="container flex flex-col gap-4 md:flex-row text-blue-900">
                             <div className="w-full pb-3 md:w-6/12">
                                 <FloatLabel className="flex flex-col w-full gap-2">
                                     <label htmlFor="phone">Teléfono de contacto</label>
@@ -134,11 +135,9 @@ export default function Register() {
                                                     localization={es}
                                                     country={'ve'}
                                                     className="m-0 w-full font-sans text-white/80 bg-gray-900 border border-blue-900/40 transition-colors duration-200 appearance-none rounded-lg hover:border-blue-500 focus:outline-none focus:shadow-[0_0_0_0.2rem_rgba(147,197,253,0.5)] p-3 text-base"
-
                                                     type="text"
                                                     id="phone"
                                                 />
-
                                             )}
                                         />
                                     </div>
@@ -146,7 +145,7 @@ export default function Register() {
                                     {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
                                 </FloatLabel>
                             </div>
-                            <div className="w-full pb-3 md:w-6/12">
+                            <div className="w-full pb-3 md:w-6/12 text-blue-900">
                                 <FloatLabel className="flex flex-col w-full gap-2">
                                     <label htmlFor="indentification">Cedula</label>
                                     <InputText id="indentification" {...register("indentification")} placeholder="Ej. 99.999.999" />
@@ -154,7 +153,7 @@ export default function Register() {
                                 </FloatLabel>
                             </div>
                         </div>
-                        <div className="container flex flex-col gap-4 md:flex-row">
+                        <div className="container flex flex-col gap-4 md:flex-row text-blue-900">
                             <div className="w-full pb-3 md:w-6/12">
                                 <FloatLabel className="flex flex-col w-full gap-2 pass">
                                     <label htmlFor="newpassword">Contraseña</label>
