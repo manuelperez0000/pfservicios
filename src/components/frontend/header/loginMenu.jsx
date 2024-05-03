@@ -69,6 +69,6 @@ export default function LoginMenu() {
         cookieToken.removeCookieToken('adminToken')
         navigate('/')
     }
-    return isLogin ? <LoginContextMenu resetMenu={resetMenu} userData={userData} isAdmin={isAdmin} navigate={navigate} /> : <LoginButton navigation={navigation} />
+    return isLogin && userData.username ? <LoginContextMenu resetMenu={resetMenu} userData={userData} isAdmin={isAdmin} navigate={navigate} /> : <LoginButton navigation={navigation} />
 
 }

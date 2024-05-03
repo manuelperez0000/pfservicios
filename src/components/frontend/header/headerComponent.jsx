@@ -6,7 +6,7 @@ import ButtonItem from "./buttonItem";
 import MobileMenu from "./MobileMenu";
 import Logo from "./logo";
 import WhatsappButton from "../whatsapp/whatsappButton";
-import { frontRoutes } from "../../../router";
+import { frontRoutes } from "../../../routes";
 import LoginMenu from "./loginMenu";
 
 export default function HeaderComponent() {

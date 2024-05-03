@@ -1,7 +1,9 @@
 import { Zustand } from "../libs"
 import { axios, cookieToken } from "../utils"
 
+
 const useAutoSignOn = () => {
+
     const zustand = Zustand.useStore()
     const autoSignOn = async (token) => {
         try {
@@ -22,13 +24,14 @@ const useAutoSignOn = () => {
             if (error.status === 401 || error.status === 403) {
                 zustand.setIsLogin(false)
                 zustand.setIsAdmin(false)
-                zustand.setUserData({})
+                zustand.setUserData(null)
                 cookieToken.removeCookieToken('userToken')
 
                 if (cookieToken.getCookieToken('adminToken') === 'admin') {
                     cookieToken.removeCookieToken('adminToken')
                 }
             }
+
         }
     }
 

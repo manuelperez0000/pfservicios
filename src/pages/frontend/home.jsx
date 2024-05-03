@@ -1,15 +1,9 @@
 import { Helmet } from "react-helmet";
 import { FrontendComponents } from '../../components/index'
-import { Zustand } from "../../libs";
-import { useEffect } from "react";
 import { config } from '../../../config'
 
 export default function Home() {
-  const { selectOption } = Zustand.useStore()
 
-  useEffect(() => {
-    console.log(selectOption);
-  }, [selectOption])
   return (
     <>
       <Helmet >

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { create } from 'zustand'
+import { createWithEqualityFn } from 'zustand/traditional'
 
-export const useStore = create((set) => ({
+export const useStore = createWithEqualityFn((set) => ({
     isLogin: false,
     userData: null,
     isAdmin: false,

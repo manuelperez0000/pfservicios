@@ -5,9 +5,9 @@ import { LateralNav } from "../../elements/lateralNav";
 import './admin.scss'
 
 export default function AdminLayout({ children }) {
-    const { openLateralNav } = Zustand.useStore()
+    const { openLateralNav, userData } = Zustand.useStore()
     const lateralWidth = openLateralNav ? 'open' : ''
-    return (
+    return userData && (
         <div className="relative admin">
             <AdminHeader />
             <LateralNav />

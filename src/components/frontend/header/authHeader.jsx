@@ -1,4 +1,4 @@
-import { authRoutes, loggedRoute } from "../../../router";
+import { authRoutes, loggedRoute } from "../../../routes";
 import { Zustand } from '../../../libs';
 import Logo from "./logo";
 import NavComponent from "./navComponent";

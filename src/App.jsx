@@ -9,7 +9,8 @@ import useAutoSignOn from './hooks/useAutoSignOn';
 
 export default function App() {
     const zustand = Zustand.useStore()
-    const { autoSignOn } = useAutoSignOn()
+    const { autoSignOn } = useAutoSignOn() // 
+
     useEffect(() => {
         const token = cookieToken.getCookieToken('userToken');
         //    console.log(token);
@@ -19,7 +20,10 @@ export default function App() {
             zustand.setIsLogin(false)
         }
     }, [])
+
+
     const base = window.location.origin
+
     return (
         <BrowserRouter base={`${base}/`} >
             <Routes>
@@ -29,17 +33,17 @@ export default function App() {
                 <Route path="/recover" element={<Auth.Recover />} />
 
                 <Route path="/checkout" element={
-                    <ProtectedRoutes login={zustand.isLogin}>
+                    <ProtectedRoutes >
                         <Checkout />
                     </ProtectedRoutes>}
                 />
                 <Route path="/profile" element={
-                    <ProtectedRoutes login={zustand.isLogin}>
+                    <ProtectedRoutes>
                         <Frontend.ProfilePage />
                     </ProtectedRoutes>}
                 />
                 <Route path="/admin" element={
-                    <AdminRoutes login={zustand.isLogin} role={zustand.isAdmin}>
+                    <AdminRoutes>
                         <Admin.Home />
                     </AdminRoutes>}>
                     <Route path="/admin" element={<Admin.AdminPage />} />
@@ -50,12 +54,15 @@ export default function App() {
 
             </Routes>
         </BrowserRouter>
+
     )
 }
 
-const ProtectedRoutes = ({ children, login }) => {
-    return login ? children : <Navigate to="/login" />
+const ProtectedRoutes = ({ children }) => {
+    const token = cookieToken.getCookieToken('userToken');
+    return token && token !== 'undefined' && token !== 'null' ? children : <Navigate to="/login" />
 }
-const AdminRoutes = ({ children, role, login }) => {
-    return role == 'admin' && login ? children : <Navigate to="/login" />
+const AdminRoutes = ({ children }) => {
+    const admin = cookieToken.getCookieToken('adminToken');
+    return admin && admin === 'true' ? children : <Navigate to="/login" />
 }

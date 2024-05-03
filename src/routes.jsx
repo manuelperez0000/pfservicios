@@ -1,4 +1,3 @@
-import { createBrowserRouter } from 'react-router-dom';
 import { Admin, Auth, Checkout, Frontend } from './pages';
 
 
@@ -159,4 +158,3 @@ export const routes = [
     isAdmin: false
   }
 ]
-export const router = createBrowserRouter(routes)
