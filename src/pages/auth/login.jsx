@@ -36,17 +36,10 @@ export default function Login() {
     })
 
     const onSubmit = async (data) => {
-
         setLoading(true)
-
         try {
             const response = await axios.createAxios().post('/user/login', data)
-
-            console.log(response)
-
             const responseData = response.data
-            console.log(responseData)
-
             if (response && response.status === 200) {
                 const { data: { username, email, phone, indentification, role }, token } = responseData.data
                 setUserData({ username, email, phone, indentification, role })
@@ -61,7 +54,7 @@ export default function Login() {
             }
 
         } catch (err) {
-            const detail = err.response?.data.data.error ? err.response.data.data.error : "Error en la peticion"
+            const detail = err.response?.data.data.error ? "Usuario o contraseña invalida" : "Error en la peticion"
             toast.current.show({ severity: 'error', summary: 'Error', detail })
         } finally {
             setLoading(false)
