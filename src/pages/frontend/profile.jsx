@@ -1,20 +1,25 @@
+<<<<<<< HEAD
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
+=======
+
+>>>>>>> master
 import { Elements, FrontendComponents } from '../../components';
 import { Zustand } from '../../libs';
-import { useNavigate } from 'react-router-dom';
 import { FormInput } from '../../components/elements/formInput';
 import { Helmet } from 'react-helmet';
 export default function Profile() {
-    const { isLogin, userData } = Zustand.useStore()
-    const navigate = useNavigate();
-    useEffect(() => {
-        if (!isLogin) navigate('/login')
-    }, [])
-    return (
+    const zustand = Zustand.useStore()
+
+
+    return zustand.userData && (
         <>
             <Helmet >
+<<<<<<< HEAD
                 <title>PFServicios | Perfil {userData?.username}</title>
+=======
+                <title>PFServicios | Perfil {zustand.userData.username}</title>
+>>>>>>> master
             </Helmet>
             <FrontendComponents.Layout.AuthLayout bgBackground="https://picsum.photos/1920/1080">
                 <Elements.CardComponent title="Perfil" subtitle="Aquí puedes ver y modificar tus datos personales">

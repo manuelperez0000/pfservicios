@@ -1,4 +1,15 @@
 #header-auth {
+  svg {
+    width: 32px;
+    display: block;
+    fill: #171717 !important;
+    .cls-1 {
+      fill: #171717 !important;
+      stroke: #171717;
+      stroke-miterlimit: 10;
+      stroke-width: 0.25px;
+    }
+  }
   ul {
     li {
       &.active {

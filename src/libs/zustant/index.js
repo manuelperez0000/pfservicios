@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-/* import { create } from 'zustand' */
 import { createWithEqualityFn } from 'zustand/traditional'
 
 export const useStore = createWithEqualityFn((set) => ({

@@ -1,12 +1,12 @@
 import { Skeleton } from 'primereact/skeleton';
 import { Zustand } from "../../../libs"
 import './lateralNav.scss'
-import { adminRoutes } from '../../../router';
+import { adminRoutes } from '../../../routes';
 import LateralNavItems from './lateralNavItems';
 export default function LateralNav() {
     const { openLateralNav, userData } = Zustand.useStore()
     const lateralWidth = openLateralNav ? ' open' : ''
-    return (
+    return userData && (
         <aside className={`lateralNav${lateralWidth} p-4 shadow-md`}>
             <nav role="navigation" className="menu-container">
                 <div className="block mb-4">
