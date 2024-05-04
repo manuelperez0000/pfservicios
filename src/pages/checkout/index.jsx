@@ -11,21 +11,13 @@ import { SelectButton } from "primereact/selectbutton";
 import { Dialog } from "primereact/dialog";
 import { ScrollPanel } from "primereact/scrollpanel";
 import { axios } from "../../utils";
-<<<<<<< HEAD
-import { Toast } from "primereact/toast"
-=======
 import { Toast } from "primereact/toast";
 import { Helmet } from "react-helmet";
-
->>>>>>> master
-
 import useServiceStore from "../../libs/zustant/useSeviceStore";
 
 const clientId = import.meta.env.VITE_CLIENT_ID;
 
 export default function Checkout() {
-
-    const { userData } = Zustand.useStore()
 
     const { servicesSelected, setservicesSelected, amount, setAmount } = useServiceStore()
 
@@ -34,10 +26,7 @@ export default function Checkout() {
 
     const targetRef = useRef();
     const toast = useRef(null);
-<<<<<<< HEAD
-=======
     const { selectOption, userData, setSelectOption } = Zustand.useStore();
->>>>>>> master
     const [orderData, setOrderData] = useState({})
     const options = ['No', 'Si'];
     const downloadPdf = () => generatePDF(targetRef, {
@@ -70,12 +59,6 @@ export default function Checkout() {
 
     //console.log(selectOption, userData);
 
-<<<<<<< HEAD
-
-
-=======
-    const [amount, setAmount] = useState(null);
->>>>>>> master
     const [accessToken, setAccessToken] = useState(null);
     const [openDialog, setOpenDialog] = useState(false);
     const [checked, setChecked] = useState(options[0]);
@@ -95,18 +78,9 @@ export default function Checkout() {
         const data = await getToken.json();
         setAccessToken(data);
     }
-    useEffect(() => {
 
-        GetAccessToken();
-    }, [])
-
-
-
-    const handleClick = (e) => {
-
-        setAmount(e.value);
-
-    }
+    useEffect(() => {GetAccessToken()}, [])
+    const handleClick = (e) => {setAmount(e.value);}
     useEffect(() => {
         if (checked === options[0]) {
             setOpenDialog(false)
