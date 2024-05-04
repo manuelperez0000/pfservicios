@@ -54,6 +54,7 @@ export default function App() {
 }
 
 const ProtectedRoutes = ({ children, login }) => {
+    
     return login ? children : <Navigate to="/login" />
 }
 const AdminRoutes = ({ children, role, login }) => {

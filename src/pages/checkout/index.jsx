@@ -1,14 +1,9 @@
 /* eslint-disable no-irregular-whitespace */
 import { useState, useEffect, useRef } from "react";
-import {
-    PayPalScriptProvider,
-    PayPalButtons
-} from "@paypal/react-paypal-js";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import generatePDF from "react-to-pdf";
-
 import { Elements, FrontendComponents } from "../../components";
 import { Zustand } from "../../libs";
-
 import { Dropdown } from 'primereact/dropdown';
 import { InputNumber } from "primereact/inputnumber";
 import { config } from '../../../config'
@@ -16,20 +11,23 @@ import { SelectButton } from "primereact/selectbutton";
 import { Dialog } from "primereact/dialog";
 import { ScrollPanel } from "primereact/scrollpanel";
 import { axios } from "../../utils";
-import { Toast } from "primereact/toast";
+import { Toast } from "primereact/toast"
 
-
+import useServiceStore from "../../libs/zustant/useSeviceStore";
 
 const clientId = import.meta.env.VITE_CLIENT_ID;
 
-
-
-
-
 export default function Checkout() {
+
+    const { userData } = Zustand.useStore()
+
+    const { servicesSelected, setservicesSelected, amount, setAmount } = useServiceStore()
+
+    /* const [servicesSelected, setservicesSelected] = useState(selectOption);
+    const [amount, setAmount] = useState(null); */
+
     const targetRef = useRef();
     const toast = useRef(null);
-    const { selectOption, userData } = Zustand.useStore();
     const [orderData, setOrderData] = useState({})
     const options = ['No', 'Si'];
     const downloadPdf = () => generatePDF(targetRef, {
@@ -38,6 +36,7 @@ export default function Checkout() {
             margin: 20
         }
     });
+
     const selectOptions = [
 
         {
@@ -60,8 +59,9 @@ export default function Checkout() {
     ]
 
     //console.log(selectOption, userData);
-    const [servicesSelected, setservicesSelected] = useState(selectOption);
-    const [amount, setAmount] = useState(null);
+
+
+
     const [accessToken, setAccessToken] = useState(null);
     const [openDialog, setOpenDialog] = useState(false);
     const [checked, setChecked] = useState(options[0]);
