@@ -1,10 +1,10 @@
 import Axios from 'axios';
 import { cookieToken } from './index';
-/* import { config } from '../../config'; */
+ import { config } from '../../config';
 
 export const createAxios = () => {
     //const url = import.meta.env.MODE ==='development'?config.devServerUrl:config.prodServerUrl;
-    const url = "https://backendpfservicios-cmsinmueble.vercel.app/"
+    const url = config.prodServerUrl
     const getToken = cookieToken.getCookieToken()
     const authorization = getToken ? `Bearer ${getToken}` : '';
     const controller = new AbortController();
