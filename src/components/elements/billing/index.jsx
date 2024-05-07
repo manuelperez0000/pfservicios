@@ -1,4 +1,3 @@
-/* eslint-disable no-irregular-whitespace */
 /* eslint-disable react/prop-types */
 import './billing.scss';
 
@@ -102,7 +101,8 @@ export default function Billing({ orderData, userData }) {
                                                                                             <img align="center" border={0} src="/bill/image-1.png" alt="Calendar " title="Calendar " style={{ outline: 'none', textDecoration: 'none', msInterpolationMode: 'bicubic', clear: 'both', display: 'inline-block !important', border: 'none', height: 'auto', float: 'none', width: '17%', maxWidth: '34px' }} width={34} className="v-src-width v-src-max-width" />
                                                                                         </td>
                                                                                     </tr>
-                                                                                    </tbody></table>
+                                                                                    </tbody>
+                                                                                </table>
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
@@ -378,7 +378,7 @@ export default function Billing({ orderData, userData }) {
                                                                         <tr>
                                                                             <td className="v-container-padding-padding" style={{ overflowWrap: 'break-word', wordBreak: 'break-word', padding: '10px 10px 20px', fontFamily: 'arial,helvetica,sans-serif' }} align="left">
                                                                                 <div className="v-font-size" style={{ fontSize: '14px', lineHeight: '180%', textAlign: 'center', wordWrap: 'break-word' }}>
-                                                                                    <p style={{ fontSize: '14px', lineHeight: '110%' }}><span style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '14px' }}> Yo, <b style={{ color: '#1E68FA', fontWeight: 700 }}>{userData.username} </b> de la persona, titular del correo de cuenta PayPal <b style={{ color: '#1E68FA', fontWeight: 700 }}>{userData.email}</b>, he quedado totalmente satisfecho con el servicio profesional recibido, renunciando a cualquier tipo de reembolso.</span></p>
+                                                                                    <p style={{ fontSize: '14px', lineHeight: '110%' }}><span style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '14px' }}> Yo, <b style={{ color: '#1E68FA', fontWeight: 700 }}>{userData.username} </b> de la persona, titular del correo de cuenta PayPal <b style={{ color: '#1E68FA', fontWeight: 700 }}>{userData.email}</b>, he quedado totalmente satisfecho con el servicio profesional recibido, renunciando a cualquier tipo de reembolso.</span></p>
                                                                                 </div>
                                                                             </td>
                                                                         </tr>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Zustand } from "../libs";
@@ -28,5 +29,3 @@ const useLogout = () => {
 }
 
 export default useLogout;
-
-{/* useLogout.jsx */ }

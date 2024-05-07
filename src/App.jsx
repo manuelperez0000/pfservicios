@@ -1,5 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-
 import { useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Zustand } from "./libs"
@@ -20,7 +20,6 @@ export default function App() {
             zustand.setIsLogin(false)
         }
     }, [])
-
 
     const base = window.location.origin
 

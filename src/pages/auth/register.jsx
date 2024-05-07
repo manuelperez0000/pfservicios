@@ -16,8 +16,6 @@ import 'react-phone-input-2/lib/style.css'
 import { axios, cookieToken } from "../../utils";
 import { Toast } from 'primereact/toast';
 
-
-
 const schema = yup.object({
     username: yup.string().required("El nombre es requerido"),
     email: yup.string().email('Debe ser un correo valido').required("El correo es requerido"),
@@ -28,8 +26,6 @@ const schema = yup.object({
         .string()
         .oneOf([yup.ref("newpassword")], "Las contraseñas no coinciden").required("Confirme la contraseña"),
 }).required();
-
-
 
 export default function Register() {
     const { setAuthModal, setIsLogin, setUserData, isLogin, setIsAdmin } = Zustand.useStore()
@@ -43,8 +39,6 @@ export default function Register() {
     } = useForm({
         resolver: yupResolver(schema),
     })
-
-
 
     const onSubmit = async (data) => {
         try {

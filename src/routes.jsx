@@ -1,6 +1,5 @@
 import { Admin, Auth, Checkout, Frontend } from './pages';
 
-
 export const frontRoutes = [
   {
     path: "/#",

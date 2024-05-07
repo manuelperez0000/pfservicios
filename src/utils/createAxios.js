@@ -1,12 +1,12 @@
 import Axios from 'axios';
 import { cookieToken } from './index';
-import { config } from '../../config';
+/* import { config } from '../../config'; */
 
 export const createAxios = () => {
-    const url = import.meta.env.MODE ==='development'?config.devServerUrl:config.prodServerUrl;
-   
+    //const url = import.meta.env.MODE ==='development'?config.devServerUrl:config.prodServerUrl;
+    const url = "https://backendpfservicios-cmsinmueble.vercel.app/"
     const getToken = cookieToken.getCookieToken()
-    const authorization = getToken ? `Bearer ${getToken}`:'';
+    const authorization = getToken ? `Bearer ${getToken}` : '';
     const controller = new AbortController();
     const signal = controller.signal;
     return Axios.create({
@@ -14,7 +14,7 @@ export const createAxios = () => {
         headers: {
             'Authorization': authorization,
             'Content-Type': 'application/json',
-        }, 
+        },
         timeout: 10000,
         timeoutErrorMessage: 'Request timed out',
         signal: signal,

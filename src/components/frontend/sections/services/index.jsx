@@ -33,7 +33,7 @@ export default function Services() {
                         <div className="w-full pb-6 md:w-6/12 md:pb-0">
                             <img
                                 src="/virus.svg"
-                                alt="Eliminación de virus de forma segura"
+                                alt="Eliminación de virus de forma segura"
                                 className="w-full"
                             />
                         </div>
@@ -62,8 +62,6 @@ export default function Services() {
                         </div>
                     </div>
                 </article>
-
-
             </div>
         </section>
     )

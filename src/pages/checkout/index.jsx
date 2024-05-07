@@ -1,4 +1,4 @@
-/* eslint-disable no-irregular-whitespace */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useRef } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import generatePDF from "react-to-pdf";
@@ -19,7 +19,7 @@ const clientId = import.meta.env.VITE_CLIENT_ID;
 
 export default function Checkout() {
 
-    const { servicesSelected, setservicesSelected, amount, setAmount } = useServiceStore()
+    const { amount, setAmount } = useServiceStore()
 
     /* const [servicesSelected, setservicesSelected] = useState(selectOption);
     const [amount, setAmount] = useState(null); */
@@ -79,8 +79,8 @@ export default function Checkout() {
         setAccessToken(data);
     }
 
-    useEffect(() => {GetAccessToken()}, [])
-    const handleClick = (e) => {setAmount(e.value);}
+    useEffect(() => { GetAccessToken() }, [])
+    const handleClick = (e) => { setAmount(e.value); }
     useEffect(() => {
         if (checked === options[0]) {
             setOpenDialog(false)
@@ -127,18 +127,14 @@ export default function Checkout() {
                             onClick={() => setOpenDialog(true)}>Pagar</button>
                     </div>
                     <Dialog visible={openDialog} breakpoints={{ '960px': '75vw', '641px': '100vw' }} style={{ width: '50vw' }} onHide={() => { setChecked(options[0]); setOpenDialog(false) }}>
-
                         <ScrollPanel style={{ width: '100%', height: '200px' }}>
                             <div className="flex flex-col flex-wrap items-center justify-center w-full gap-2">
                                 <div className="w-12/12">
                                     <p className="pb-4 text-lg text-center semi-bold">
-                                        Yo, <b className="text-xl bold text-primary">{userData.username} </b> de la persona, titular del correo de cuenta PayPal <b className="text-xl bold text-primary">{userData.email}</b>, he realizado el pago de <b className="text-xl bold text-primary">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount)} USD</b> por el servicio <b className="text-xl bold text-primary">{getDescriptionByOption(selectOption)}</b> realizados conscientemente por mi persona y a mi entera satisfacción, quedando totalmente satisfecho con el servicio profesional recibidos, renunciando a cualquier tipo de reembolso.
+                                        Yo, <b className="text-xl bold text-primary">{userData.username} </b> de la persona, titular del correo de cuenta PayPal <b className="text-xl bold text-primary">{userData.email}</b>, he realizado el pago de <b className="text-xl bold text-primary">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount)} USD</b> por el servicio <b className="text-xl bold text-primary">{getDescriptionByOption(selectOption)}</b> realizados conscientemente por mi persona y a mi entera satisfacción, quedando totalmente satisfecho con el servicio profesional recibidos, renunciando a cualquier tipo de reembolso.
                                     </p>
                                 </div>
-
-
                             </div>
-
                         </ScrollPanel>
                         <div className="flex justify-center w-full pt-4">
                             <SelectButton className="flex justify-center" value={checked} onChange={(e) => setChecked(e.value)} options={options} />
